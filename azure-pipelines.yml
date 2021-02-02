@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+variables:
+  DestRepo: 'https://github.com/udemegane/UE426_Azure_mirror.git'
+
+pool:
+  vmImage: 'ubuntu-latest'
+trigger:
+- master
+steps:
+- task: swellaby.mirror-git-repository.mirror-git-repository-vsts-task.mirror-git-repository-vsts-task@1
+  displayName: 'Mirror Git Repository'
+  inputs:
+    sourceGitRepositoryUri: 'https://dev.azure.com/cappuccino1204ck/UE426_bp2cpp/_git/UE426_bp2cpp'
+    sourceVerifySSLCertificate: false
+    destinationGitRepositoryUri: 'https://github.com/udemegane/UE426_bp2cpp_mirror.git'
+    destinationGitRepositoryPersonalAccessToken: '$(Github_Token)'
+    sourceGitRepositoryPersonalAccessToken: '$(Azure_Token_full)'
+
+
